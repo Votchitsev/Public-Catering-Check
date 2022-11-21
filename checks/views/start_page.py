@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from pprint import pprint
+from urllib import response
 
 from django.contrib.auth import logout
 from django.urls import reverse
@@ -10,6 +11,7 @@ from checks.models import ExecutiveDirector
 from checks.servises.plan import make_plan
 from checks.servises.rating import getRating
 from checks.servises.get_files import BreachStatistics, MainReport, download_report_not_submited
+from checks.servises.control_events import get_control_events_data
 
 def logout_view(request):
     logout(request)
@@ -34,6 +36,19 @@ def download_main_report(request):
     response['Content-Disposition'] = f"attachment;filename=report.xlsx"
     return response
 
+def main_report(request):
+    start_date = request.GET['start_date']
+    finish_date = request.GET['finish_date']
+
+    control_events = get_control_events_data(start_date, finish_date)
+
+    context = {
+        'start_date': start_date,
+        'finish_date': finish_date,
+        'control_events': control_events,
+    }
+
+    return render(request, context=context, template_name='checks/main_report.html')
 
 def download_brach_statistics(request):
     start_date = request.GET['start_date']

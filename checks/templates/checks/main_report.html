@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static "/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "/css/rating.css" %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300&display=swap" rel="stylesheet">
+    <title>Отчёт о проведённых проверках</title>
+</head>
+<body>
+    <h1 class="table-title">Реестр проверок</h1>
+    <div class="table-subtitle">{{ start_date|date:'d.m.Y' }} - {{ finish_date|date:'d.m.Y' }}</div>
+    <table class="main_report_table"> 
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Объект</th>
+                <th>Муниципалитет</th>
+                <th>Оценка</th>
+                <th>Баллы</th>
+                <th>Оценка управляющему</th>
+                <th>Оценка управляющему по производству</th>
+                <th>Наличие просроченной продукции</th>
+                <th>Наличие недоброкачественной продукции</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in control_events %}
+            <tr>
+                <td>{{ event.date|date:'d.m.Y' }}</td>
+                <td>{{ event.object_name }}</td>
+                <td>{{ event.object_location }}</td>
+                <td>{{ event.grade }}</td>
+                <td>{{ event.score }}</td>
+                <td>{{ event.score_manager }}</td>
+                <td>{{ event.score_production_manager }}</td>
+                <td>{{ event.is_overdue_food }}</td>
+                <td>{{ event.is_poor_qualit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'download_rating' %}?start_date={{ for_download.start_date }}&finish_date={{ for_download.finish_date }}">
+        <i class="fa-solid fa-download download-icon"></i>
+    </a>
+    <script src="https://kit.fontawesome.com/d8dec79184.js" crossorigin="anonymous"></script>
+</body>
+</html>

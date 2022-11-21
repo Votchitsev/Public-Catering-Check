@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required
 from checks.views.control_events import ControlEventListView, delete_control_event_view, ControlEventFormView, ControlEventView, check_list_form, delete_check_list_view, download_check_list_file
 from checks.views.correction_report import get_correction_report, change_correction_report, add_correction_report_comment, delete_correction_report_comment
 from checks.views.objects import object_page_view, get_objects_view, ObjectFormView
-from checks.views.start_page import logout_view, start_view, download_main_report, download_brach_statistics, download_report_not_submited_view, ex_director_report_view, rating
+from checks.views.start_page import logout_view, start_view, download_main_report, download_brach_statistics, download_report_not_submited_view, ex_director_report_view, rating, main_report
 from checks.views.rating import download_rating_view
 
 object_patterns = [
@@ -50,7 +50,7 @@ urlpatterns = [
     path('control_event/', include(control_event_patterns)),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', logout_view, name='logout'),
-    path('report/', download_main_report, name='download_main_report'),
+    path('report/', main_report, name='download_main_report'),
     path('breach_statistics/', download_brach_statistics, name="download_brach_statistics"),
     path('report_checking/report_not_submited/', download_report_not_submited_view, name="download_report_not_submited"),
     path('ex_direct_report/', ex_director_report_view, name='ex_director_report_view'),
