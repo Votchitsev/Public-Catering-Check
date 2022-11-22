@@ -50,10 +50,13 @@ urlpatterns = [
     path('control_event/', include(control_event_patterns)),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', logout_view, name='logout'),
-    path('report/', main_report, name='download_main_report'),
     path('breach_statistics/', download_brach_statistics, name="download_brach_statistics"),
     path('report_checking/report_not_submited/', download_report_not_submited_view, name="download_report_not_submited"),
     path('ex_direct_report/', ex_director_report_view, name='ex_director_report_view'),
+    # main report path
+    path('report/', main_report, name='main_report'),
+    path('report/download', download_main_report, name='download_main_report'),
+    # rating path
     path('rating/', rating, name='rating'),
     path('rating/download/', download_rating_view, name='download_rating')
 ]
