@@ -108,7 +108,6 @@ class BreachStatistics:
         self.finish_date = finish_date
 
     def download_file(self):
-
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output)
         worksheet = workbook.add_worksheet()
@@ -215,3 +214,4 @@ def download_rating(workbook, worksheet, start_date, finish_date):
         worksheet.write(row, 3, item['avg_score'])
 
         row += 1
+        

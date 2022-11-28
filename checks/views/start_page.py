@@ -43,9 +43,13 @@ def main_report(request):
     control_events = get_control_events_data(start_date, finish_date)
 
     context = {
-        'start_date': start_date,
-        'finish_date': finish_date,
+        'start_date': datetime.strptime(start_date, "%Y-%m-%d"),
+        'finish_date': datetime.strptime(finish_date, "%Y-%m-%d"),
         'control_events': control_events,
+        'for_download': {
+            'start_date': start_date,
+            'finish_date': finish_date,
+        }
     }
 
     return render(request, context=context, template_name='checks/main_report.html')
