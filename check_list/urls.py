@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.conf.urls.static import static
 
 from checks.views.control_events import ControlEventListView, delete_control_event_view, ControlEventFormView, ControlEventView, check_list_form, delete_check_list_view, download_check_list_file
 from checks.views.correction_report import get_correction_report, change_correction_report, add_correction_report_comment, delete_correction_report_comment
@@ -60,3 +62,7 @@ urlpatterns = [
     path('rating/', rating, name='rating'),
     path('rating/download/', download_rating_view, name='download_rating')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
